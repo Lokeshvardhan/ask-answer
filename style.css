@@ -1,0 +1,12 @@
+#headbar {
+  height: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  margin-top: 60px;
+  display: flex;
+  -webkit-flex-flow: column wrap;
+  justify-content: center; 
+  align-items: center;
+  color: #eee;
+}
