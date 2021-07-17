@@ -1,8 +1,8 @@
 <?php 
-	$server="localhost";
-	$username="loki2708";
-	$password="loki2708";
-	$db="quora";
+	$server="server_name";
+	$username="user_name";
+	$password="password";
+	$db="Quace";
 	
 	$conn=mysqli_connect($server,$username,$password,$db);
 ?>

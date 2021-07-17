@@ -8,21 +8,24 @@
 	}
 
 	$name = mysqli_real_escape_string($conn, $_POST['name']);
-	$number = mysqli_real_escape_string($conn, $_POST['number']);
+	$fname = mysqli_real_escape_string($conn, $_POST['fname']);
+	$lname = mysqli_real_escape_string($conn, $_POST['lname']);
+	$confirm_pass = mysqli_real_escape_string($conn, $_POST['confirm_pass']);
 	$email = mysqli_real_escape_string($conn, $_POST['email']);
 	$password = mysqli_real_escape_string($conn, $_POST['password']);
+	$number = mysqli_real_escape_string($conn, $_POST['number']);
 
 	//VALIDATION
 
 	if (strlen($name) < 2) {
 		echo 'name';
-	} elseif (strlen($number) < 10) {
+	} elseif (strlen($number) != 10) {
 		echo 'number';
 	} elseif (strlen($email) <= 4) {
 		echo 'eshort';
 	} elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
 		echo 'eformat';
-	} elseif (strlen($password) <= 4) {
+	} elseif ($password!=$confirm_pass) {
 		echo 'pshort';
 		
 	//VALIDATION
@@ -52,7 +55,7 @@
 				}
 
 			} else {
-
+				
 				echo 'false';
 
 			}

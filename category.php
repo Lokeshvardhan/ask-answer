@@ -1,32 +1,15 @@
 <?php 
+
 	session_start();
 	include 'db.php';
 ?>
-<!DOCTYPE html>
 <html>
 	<head>
-		<title>Home</title>
+		<title>Category</title>
 		<link rel="stylesheet" href="css\all.css">		
 		<link rel="stylesheet" href="css\bootstrap.css">
-		<link rel="stylesheet" href="css\master.css">
 	    <script src="js\jquery.js"></script>
 		<script src="js\bootstrap.js"></script>	
-		<style>
-			body
-			{
-					background-image:url("images/img3.jpg");
-					height: auto;
-					-webkit-background-size: cover;
-					-moz-background-size: cover;
-					width:100%;
-					background-size: cover;
-					margin-top: 60px;
-					display: flex;
-					-webkit-flex-flow: column wrap;
-					justify-content: center; 
-					align-items: center;
-			}
-		</style>
 		<script>
 			$(document).ready(function () {
 
@@ -48,23 +31,7 @@
 
 										window.location.href = "main.php";
 
-									} else if (html == 'category') {
-										$("#add_err2").html('<div class="alert alert-danger"> \
-															 <strong>Question Category</strong> is missing. \ \
-															 </div>');
-															 
-									} else if (html == 'contentnull') {
-										$("#add_err2").html('<div class="alert alert-danger"> \
-															 <strong>Please enter valid question.</strong>  . \ \
-															 </div>');
-
-									} else if (html == 'content') {
-										$("#add_err2").html('<div class="alert alert-danger"> \
-															 <strong>Please explain your question briefly.</strong>  . \ \
-															 </div>');
-
 									}else {
-										alert(html);
 										$("#add_err2").html('<div class="alert alert-danger"> \
 															 <strong>Error</strong> processing request. Please try again. \ \
 															 </div>');
@@ -78,15 +45,12 @@
 						});
 					});
 		</script>
-		
 	</head>
-	<body >
-		<div class="container-fluid" >
-			<?php 
-				include 'header.php';
-			?>
+	<body>
+		<div class='container-fluid'>
+			<?php include 'header.php';?>
 			<br><br>
-				<div class="main">
+			<div class="main">
 				<aside style="width:22%; float:left; background:#ecf2f9; border:0.5px solid #4d4d4d; border-radius:10px;">
 					<br>
 					<div >
@@ -105,18 +69,55 @@
 					</div>
 				</aside>";?>
 				<section style="width:76%; background:#ecf2f9; border:2px solid #4d4d4d; margin-left:2%; float:right;">
-					
-						<?php 
-							include 'homesection.php';
-						?>
+				<?php 
+					$ques="SELECT * FROM questions,answers WHERE answers.a_status=1 and questions.q_cat='$_GET[category]' group by questions.q_id ";
+					$ques_show=mysqli_query($conn,$ques);
+					while($ques_row=mysqli_fetch_assoc($ques_show)){
+					echo"
+					<div style='margin:15px; background:#b3cce6;'>
+						<div style='border:1px solid #737373;'>
+							<div style='border-bottom:2px solid black;'>
+								<div class='row' style='margin-left:4px; margin-top:5px;'>
+									<div class='col-sm-1-'><h3>Q.</h3></div>
+									<div class='col-md-11'>
+										<h3>$ques_row[q_content]</h3>
+									</div>
+								</div>
+								<div style='text-align:right; margin-right:4px;'>
+									<h6>By:";
+									$ask="SELECT * FROM users WHERE u_id =$ques_row[u_id] LIMIT 1";
+									$ask_user=mysqli_query($conn,$ask);
+									$user_row=mysqli_fetch_assoc($ask_user);
+									echo" $user_row[u_name]
+									
+									</h6>
+								</div>
+							</div>
+							";
+								$c=1;
+							  $ans="SELECT * FROM answers WHERE answers.q_id=$ques_row[q_id] ORDER BY a_id DESC LIMIT 3  ";
+							  $ans_sql=mysqli_query($conn,$ans);
+							  while($ans_row=mysqli_fetch_assoc($ans_sql)){
+						echo"
+							<div style='border-bottom:0.5px solid black;'>
+								<div class='row' style='margin-left:4px; margin-top:5px;'>
+									<div class='col-sm-2-'><p style='font-size:20px;'><b>Ans.$c</b></p></div>
+									<div class='col-md-11' style='font-size:20px;'>
+										<p >$ans_row[a_content]</p>
+									</div>
+								</div>
+								<div style='text-align:right; margin-right:4px;'>
+									<p>Answered By:$ans_row[a_provider]<p>
+								</div>
+							</div>
+						  ";
+						  $c++;}
+						  echo "
+					</div>
+				</div>";}
+				?>
 				</section>
 			</div>
 		</div>
 	</body>
-	
-	
-	
-	
-	
-	
 </html>

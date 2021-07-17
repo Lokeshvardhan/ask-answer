@@ -35,7 +35,7 @@
 								type: "POST",
 								url: "user_check.php",
 								data: "name="+name+"&password="+password,
-								success: function(html){alert(html);
+								success: function(html){
 								  if(html=='true')
 								  {
 									  
@@ -75,14 +75,16 @@
 										<div class="modal-body border-radius_lg" style="background:#f0f0f5; border-radius:7px;">
 											<form class="form" style="background:#f0f0f5; border-radius:3px;">
 												<h4 class="text-center" >Login</h4>
+												<div id="add_err2"></div>
 												<div class="form-group">
-													<label for="exampleInputEmail1">Username/Email</label>
-													<input type="email" class="form-control" name="email" id="name" placeholder="Email" value="" aria-describedby="emailHelp" required>
+													<label for="exampleInputEmail1">Username</label>
+													<input type="name" class="form-control" name="email" id="name" placeholder="Email" value="" aria-describedby="emailHelp" required>
 												</div>
 												<div class="form-group">
 													<label for="exampleInputPassword1">Password</label>
 													<input type="password" name="password" class="form-control" placeholder="Password" id="password" required>
 												</div>
+												
 												<button type="submit" id="login" name="submit" class="btn btn-info">Login</button>
 											</form>
 										</div>

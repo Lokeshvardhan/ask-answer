@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,16 +27,19 @@
 			        $(document).ready(function () {
 
 						$("#register").click(function () {
-
+			
 							name = $("#name").val();
-							number = $("#number").val();
+							fname = $("#fname").val();
+							lname = $("#lname").val();
 							email = $("#email").val();
 							password = $("#password").val();
-
+							confirm_pass = $("#confirm-password").val();
+							number = $("#number").val();
 							$.ajax({
 								type: "POST",
 								url: "user_register.php",
-								data: "name=" + name + "&number=" + number + "&email=" + email + "&password=" + password,
+								data: "name=" + name +"&fname="+fname+ "&lname=" + lname +"&confirm_pass="+confirm_pass+ "&email=" + email + "&password=" + password+"&number="+number,
+								
 								success: function (html) {
 									if (html == 'true') {
 
@@ -74,10 +76,11 @@
 															 
 									} else if (html == 'pshort') {
 										$("#add_err2").html('<div class="alert alert-danger"> \
-															 <strong>Password</strong> must be at least 4 characters . \ \
+															 <strong>Password doesnt match</strong>  . \ \
 															 </div>');
 
 									} else {
+										alert(html);
 										$("#add_err2").html('<div class="alert alert-danger"> \
 															 <strong>Error</strong> processing request. Please try again. \ \
 															 </div>');
@@ -107,9 +110,15 @@
 											<input type="text" name="name" class="form-control" placeholder="Username" maxlength="20" id="name">
 											<span id="user-name"></span>
 										</div>
-										<div class="form-group">
-											<label >Contact Number</label>
-											<input type="number" name="number" class="form-control" placeholder="Number" maxlength="10" id="number" >
+										<div class="form-input">
+											<label >First Name</label>
+											<input type="text" name="fname" class="form-control" placeholder="First Name" maxlength="20" id="fname">
+											<span id="user-name"></span>
+										</div>
+										<div class="form-input">
+											<label >Last Name</label>
+											<input type="text" name="lname" class="form-control" placeholder="Last Name" maxlength="20" id="lname">
+											<span id="user-name"></span>
 										</div>
 										<div class="form-group">
 											<label >Email address</label>
@@ -119,9 +128,24 @@
 											</div>
 										</div>
 										<div class="form-group">
+											<label>Phone Number</label>
+											<input type="text" name="number" class="form-control" placeholder="Phone Number" maxlength="10" id="number" >
+										</div>
+										<div class="form-group">
 											<label>Password</label>
 											<input type="password" name="password" class="form-control" placeholder="Password" maxlength="10" id="password" >
 										</div>
+										<div class="form-group">
+											<label>Confirm Password</label>
+											<input type="password" name="confirm-password" class="form-control" placeholder="Confirm Password" maxlength="10" id="confirm-password" >
+										</div>
+										<!--<div class="form-group">
+											<label>Gender</label>
+											<select >
+												<option>Male</option>
+												<option>Female</option>
+											</select>
+										</div>  -->
 										<button type="submit" name="register" id="register"class="btn btn-sm btn-primary">Register</button>
 										<a href="userlogin.php" class=" float-right" style="color:#1a53ff;">Already Registered ?</a>
 										<!--For Login Page -->
